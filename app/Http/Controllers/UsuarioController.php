@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use App\Http\Resources\UsuarioResource;
 use App\Http\Requests\StoreUpdateUsuarioRequest;
 use App\Http\Controllers\ResponseController;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -45,7 +46,11 @@ class UsuarioController extends Controller
      */
     public function store(StoreUpdateUsuarioRequest $request)
     {
-        $user = Usuario::create($request->all());
+        // Encrypt password
+        $requestData = $request->all();
+        $requestData['password'] = Hash::make($requestData['password']);
+        
+        $user = Usuario::create($requestData);
         
         return $this->responseController->sendResponse('User created successfully', new UsuarioResource($user), 200);
     }
@@ -60,8 +65,15 @@ class UsuarioController extends Controller
         if (!$user) {
             return $this->responseController->sendError('User not found', 404);
         }
+                
+        // Encrypt password
+        $requestData = $request->all();
 
-        $user->update($request->all());
+        if (isset($requestData['password'])) {
+            $requestData['password'] = Hash::make($requestData['password']);
+        }
+        
+        $user->update($requestData);
         
         return $this->responseController->sendResponse('User updated successfully', new UsuarioResource($user), 200);
     }
