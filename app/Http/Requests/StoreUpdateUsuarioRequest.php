@@ -32,7 +32,7 @@ class StoreUpdateUsuarioRequest extends FormRequest
                     'required',
                     'string',
                     'email',
-                    'unique:usuarios',
+                    'unique:tb_usuarios',
                     'max:255',
                 ],
                 'password' => [
@@ -54,7 +54,7 @@ class StoreUpdateUsuarioRequest extends FormRequest
                     'string',
                     'email',
                     'max:255',
-                    'unique:usuarios,email,' . $this->route('user'),
+                    'unique:tb_usuarios,email,' . $this->route('user'),
                 ],
                 'password' => [
                     'required',

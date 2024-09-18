@@ -88,3 +88,12 @@ sail artisan migrate
 
 - **Aplicação Laravel**: [http://localhost](http://localhost) ou [http://127.0.0.1](http://127.0.0.1/)
 - **Banco de Dados**: [http://localhost:8000](http://localhost:8000) ou [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+## Endpoints
+
+- `GET` `http://localhost/api/users`            // Listar todos os usuários
+- `GET` `http://localhost/api/users/{id}`       // Obter usuário por ID
+- `POST` `http://localhost/api/users`           // Criar um novo usuário
+- `PUT` `http://localhost/api/users/{id}`       // Atualizar usuário por ID
+- `PATCH` `http://localhost/api/users/{id}`     // Atualizar parcialmente usuário
+- `DELETE` `http://localhost/api/users/{id}`    // Deletar usuário por ID
