@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use App\Http\Resources\UsuarioResource;
 use App\Http\Requests\StoreUpdateUsuarioRequest;
 use App\Http\Controllers\ResponseController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -20,11 +21,24 @@ class UsuarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = Usuario::all();
+        // search filter
+        $query = Usuario::query();
+        $fields = ['name', 'email'];
+        
+        foreach ($fields as $field) {
+            if ($request->has($field)) {
+                $query->where($field, 'like', '%' . $request->input($field) . '%');
+            }
+        }    
 
-        return $this->responseController->sendResponse('Users found successfully', UsuarioResource::collection($users), 200);
+        $users = $query->paginate();
+        return UsuarioResource::collection($users);
+
+        // No search filter
+        // $users = Usuario::all();
+        // return UsuarioResource::collection($users);
     }
 
     /**
