@@ -66,4 +66,12 @@ class StoreUpdateUsuarioRequest extends FormRequest
         }
         return $rules;
     }
+
+    // Custom validation messages
+    public function messages(): array
+    {
+        return [
+            // 'name.required' => 'Name required',
+        ];
+    }
 }
