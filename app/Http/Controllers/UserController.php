@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Resources\UsuarioResource;
-use App\Http\Requests\StoreUpdateUsuarioRequest;
+use App\Http\Resources\UserResource;
+use App\Http\Requests\StoreUpdateUserRequest;
 use App\Http\Controllers\ResponseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
     protected $responseController;
 
@@ -35,11 +35,11 @@ class UsuarioController extends Controller
 
         // No pagination
         $users = $query->get();
-        return UsuarioResource::collection($users);
+        return UserResource::collection($users);
 
         // With pagination
         // $users = $query->paginate(15);
-        // return UsuarioResource::collection($users);
+        // return UserResource::collection($users);
     }
 
     /**
@@ -53,13 +53,13 @@ class UsuarioController extends Controller
             return $this->responseController->sendError('User not found', 404);
         }
 
-        return $this->responseController->sendResponse('User found successfully', new UsuarioResource($user), 200);
+        return $this->responseController->sendResponse('User found successfully', new UserResource($user), 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateUsuarioRequest $request)
+    public function store(StoreUpdateUserRequest $request)
     {
         // Encrypt password
         $requestData = $request->all();
@@ -67,13 +67,13 @@ class UsuarioController extends Controller
         
         $user = User::create($requestData);
         
-        return $this->responseController->sendResponse('User created successfully', new UsuarioResource($user), 200);
+        return $this->responseController->sendResponse('User created successfully', new UserResource($user), 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateUsuarioRequest $request, string $id)
+    public function update(StoreUpdateUserRequest $request, string $id)
     {
         $user = User::find($id);
 
@@ -90,7 +90,7 @@ class UsuarioController extends Controller
         
         $user->update($requestData);
         
-        return $this->responseController->sendResponse('User updated successfully', new UsuarioResource($user), 200);
+        return $this->responseController->sendResponse('User updated successfully', new UserResource($user), 200);
     }
 
     /**
@@ -106,6 +106,6 @@ class UsuarioController extends Controller
 
         $user->delete();
         
-        return $this->responseController->sendResponse('User deleted successfully', new UsuarioResource($user), 200);
+        return $this->responseController->sendResponse('User deleted successfully', new UserResource($user), 200);
     }
 }
