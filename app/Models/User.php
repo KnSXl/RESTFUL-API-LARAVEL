@@ -12,6 +12,13 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
+
+    protected $table = 'tb_user';
+
+    protected $primaryKey = 'id';
+
     /**
      * The attributes that are mass assignable.
      *

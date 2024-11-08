@@ -23,19 +23,19 @@ class StoreUpdateUsuarioRequest extends FormRequest
     {
         if (request()->isMethod('post')) {
             $rules = [
-                'ds_name' => [
+                'name' => [
                     'required',
                     'string',
                     'max:255',
                 ],
-                'ds_email' => [
+                'email' => [
                     'required',
                     'string',
                     'email',
                     'unique:tb_user',
                     'max:255',
                 ],
-                'ds_password' => [
+                'password' => [
                     'required',
                     'string',
                     'min:8',
@@ -44,19 +44,19 @@ class StoreUpdateUsuarioRequest extends FormRequest
             ];
         } elseif (request()->isMethod('put') || request()->isMethod('patch')) {
             $rules = [
-                'ds_name' => [
+                'name' => [
                     'required',
                     'string',
                     'max:255',
                 ],
-                'ds_email' => [
+                'email' => [
                     'required',
                     'string',
                     'email',
                     'max:255',
-                    'unique:tb_user,ds_email,' . $this->route('user') . ',cd_user',
+                    'unique:tb_user,email,' . $this->route('user') . ',id',
                 ],
-                'ds_password' => [
+                'password' => [
                     'nullable',
                     'string',
                     'min:8',

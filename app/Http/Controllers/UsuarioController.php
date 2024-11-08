@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\User;
 use App\Http\Resources\UsuarioResource;
 use App\Http\Requests\StoreUpdateUsuarioRequest;
 use App\Http\Controllers\ResponseController;
@@ -24,8 +24,8 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
         // search filter
-        $query = Usuario::query();
-        $fields = ['cd_user', 'ds_name', 'ds_email'];
+        $query = User::query();
+        $fields = ['id', 'name', 'email'];
         
         foreach ($fields as $field) {
             if ($request->has($field)) {
@@ -45,9 +45,9 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $cd_user)
+    public function show(string $id)
     {
-        $user = Usuario::find($cd_user);
+        $user = User::find($id);
 
         if (!$user) {
             return $this->responseController->sendError('User not found', 404);
@@ -63,9 +63,9 @@ class UsuarioController extends Controller
     {
         // Encrypt password
         $requestData = $request->all();
-        $requestData['ds_password'] = Hash::make($requestData['ds_password']);
+        $requestData['password'] = Hash::make($requestData['password']);
         
-        $user = Usuario::create($requestData);
+        $user = User::create($requestData);
         
         return $this->responseController->sendResponse('User created successfully', new UsuarioResource($user), 200);
     }
@@ -73,9 +73,9 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateUsuarioRequest $request, string $cd_user)
+    public function update(StoreUpdateUsuarioRequest $request, string $id)
     {
-        $user = Usuario::find($cd_user);
+        $user = User::find($id);
 
         if (!$user) {
             return $this->responseController->sendError('User not found', 404);
@@ -84,8 +84,8 @@ class UsuarioController extends Controller
         // Encrypt password
         $requestData = $request->all();
 
-        if (isset($requestData['ds_password'])) {
-            $requestData['ds_password'] = Hash::make($requestData['ds_password']);
+        if (isset($requestData['password'])) {
+            $requestData['password'] = Hash::make($requestData['password']);
         }
         
         $user->update($requestData);
@@ -96,9 +96,9 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $cd_user)
+    public function destroy(string $id)
     {
-        $user = Usuario::find($cd_user);
+        $user = User::find($id);
         
         if (!$user) {
             return $this->responseController->sendError('User not found', 404);
