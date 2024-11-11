@@ -9,15 +9,8 @@ use App\Http\Controllers\ResponseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class UserController extends ResponseController
 {
-    protected $responseController;
-
-    public function __construct()
-    {
-        $this->responseController = new ResponseController();
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -50,10 +43,10 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return $this->responseController->sendError('User not found', 404);
+            return $this->sendError('User not found', 404);
         }
 
-        return $this->responseController->sendResponse('User found successfully', new UserResource($user), 200);
+        return $this->sendResponse('User found successfully', new UserResource($user), 200);
     }
 
     /**
@@ -67,7 +60,7 @@ class UserController extends Controller
         
         $user = User::create($requestData);
         
-        return $this->responseController->sendResponse('User created successfully', new UserResource($user), 200);
+        return $this->sendResponse('User created successfully', new UserResource($user), 200);
     }
 
     /**
@@ -78,7 +71,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return $this->responseController->sendError('User not found', 404);
+            return $this->sendError('User not found', 404);
         }
                 
         // Encrypt password
@@ -90,7 +83,7 @@ class UserController extends Controller
         
         $user->update($requestData);
         
-        return $this->responseController->sendResponse('User updated successfully', new UserResource($user), 200);
+        return $this->sendResponse('User updated successfully', new UserResource($user), 200);
     }
 
     /**
@@ -101,11 +94,11 @@ class UserController extends Controller
         $user = User::find($id);
         
         if (!$user) {
-            return $this->responseController->sendError('User not found', 404);
+            return $this->sendError('User not found', 404);
         }
 
         $user->delete();
         
-        return $this->responseController->sendResponse('User deleted successfully', new UserResource($user), 200);
+        return $this->sendResponse('User deleted successfully', new UserResource($user), 200);
     }
 }
