@@ -16,16 +16,16 @@ git clone https://github.com/KnSXl/RESTFUL-API-LARAVEL.git
 cd RESTFUL-API-LARAVEL
 ```
 
-### Crie o Arquivo .env
-
-```bash
-cp .env.example .env
-```
-
 ### Instale as Dependências
 
 ```bash
 composer install
+```
+
+### Crie o Arquivo .env
+
+```bash
+cp .env.example .env
 ```
 
 ### Gere a Chave do Projeto
