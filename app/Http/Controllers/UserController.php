@@ -37,29 +37,28 @@ class UserController extends ResponseController
         // More tables no pagination
         /*
             $users = $query->get();
-            $variable = Variable::all();
+            $variables = Variable::all();
 
-            $usersWithVariable = $users->map(function ($user) use ($variable) {
-                $user->variable = $variable;
-
+            $usersWithVariables = $users->map(function ($user) use ($variables) {
+                $user->variable = $variables;
                 return $user;
             });
 
-            return User::collection($usersWithVariable);
+            return UserResource::collection($usersWithVariables);
         */
         
         // More tables with pagination
         /*
             $users = $query->paginate(15);
-            $variable = Variable::all();
+            $variables = Variable::all();
 
-            $users->getCollection()->transform(function ($user) use ($variable) {
-                $user->variable = $variable;
+            $users->getCollection()->transform(function ($user) use ($variables) {
+                $user->variable = $variables;
                 return $user;
             });
 
-            return User::collection($usersWithVariable);
-        */
+            return UserResource::collection($users);
+       */
     }
 
     /**
