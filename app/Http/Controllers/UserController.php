@@ -33,6 +33,33 @@ class UserController extends ResponseController
         // With pagination
         // $users = $query->paginate(15);
         // return UserResource::collection($users);
+
+        // More tables no pagination
+        /*
+            $users = $query->get();
+            $variable = Variable::all();
+
+            $usersWithVariable = $users->map(function ($user) use ($variable) {
+                $user->variable = $variable;
+
+                return $user;
+            });
+
+            return User::collection($usersWithVariable);
+        */
+        
+        // More tables with pagination
+        /*
+            $users = $query->paginate(15);
+            $variable = Variable::all();
+
+            $users->getCollection()->transform(function ($user) use ($variable) {
+                $user->variable = $variable;
+                return $user;
+            });
+
+            return User::collection($usersWithVariable);
+        */
     }
 
     /**
@@ -45,6 +72,10 @@ class UserController extends ResponseController
         if (!$user) {
             return $this->sendError('User not found', 404);
         }
+
+        // More tables no pagination
+        // $variable = Variable::all();
+        // $user->variable = $variable;
 
         return $this->sendResponse('User found successfully', new UserResource($user), 200);
     }

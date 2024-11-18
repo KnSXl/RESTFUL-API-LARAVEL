@@ -20,6 +20,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+
+            // If there are more tables, they will be rendered here. 
+            // 'variable' => $this->variable,
         ];
     }
 }
