@@ -22,7 +22,8 @@ class UserResource extends JsonResource
             'updated_at' => $this->updated_at,
 
             // If there are more tables, they will be rendered here. 
-            // 'variable' => $this->variable,
+            // 'variable' => $this->variable ? VariableResource::collection($this->variable) : null,
+            // 'variable' => $this->variable ? variable : null,
         ];
     }
 }
